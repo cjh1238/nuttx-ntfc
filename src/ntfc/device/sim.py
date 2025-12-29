@@ -55,3 +55,21 @@ class DeviceSim(DeviceHost):
     def name(self) -> str:
         """Get device name."""
         return "sim"
+
+    def _write(self, data: bytes) -> None:
+        """Write to the host device."""
+        if not self.dev_is_health():
+            return
+
+        assert self._child
+
+        # send char by char to avoid line length full
+        for c in data:
+            self._child.send(bytes([c]))
+
+        # add new line if missing
+        if data[-1] != ord("\n"):
+            # sometimes new line send to sim is missing
+            # so we have to send more than one new line
+            self._child.send(b"\n")
+            self._child.send(b"\n")

@@ -72,21 +72,6 @@ class DeviceHost(DeviceCommon):
 
         return self.host_open(self._cmd)
 
-    def _write(self, data: bytes) -> None:
-        """Write to the host device."""
-        if not self.dev_is_health():
-            return
-
-        assert self._child
-
-        # send char by char to avoid line length full
-        for c in data:
-            self._child.send(bytes([c]))
-
-        # add new line if missing
-        if data[-1] != ord("\n"):
-            self._child.send(b"\n")
-
     def _write_ctrl(self, c: str) -> None:
         """Write a control character to the host device."""
         if not self.dev_is_health():

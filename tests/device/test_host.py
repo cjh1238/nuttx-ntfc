@@ -29,6 +29,21 @@ class DeviceHost2(DeviceHost):
     def start(self):
         pass
 
+    def _write(self, data):
+        if not self.dev_is_health():
+            return
+
+        assert self._child
+        # send char by char to avoid line length full
+        for c in data:
+            self._child.send(bytes([c]))
+
+        # add new line if missing
+        if data[-1] != ord("\n"):
+            # sometimes new line send to sim is missing
+            # so we have to send more than one new line
+            self._child.send(b"\n\n")
+
 
 def test_device_host_open(envconfig_dummy):
 
