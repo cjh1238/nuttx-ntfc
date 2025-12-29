@@ -244,7 +244,7 @@ class DeviceCommon(ABC):
 
             # limit output data to process, otherwise re.search can stack
             # REVISIT: its possible to miss some pattern in output
-            output_max = 10240
+            output_max = 100000
             if len(output) > output_max:
                 output = output[-output_max:]
 
