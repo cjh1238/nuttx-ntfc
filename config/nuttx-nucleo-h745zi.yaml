@@ -11,16 +11,20 @@ product:
       device: 'serial'
       exec_path: '/dev/ttyACM0'
       exec_args: '115200,n,8,1'
-      defconfig: 'boards/arm/stm32h7/nucleo-h745zi/configs/ntfc-all-cm7'
+      defconfig: 'boards/arm/stm32h7/nucleo-h745zi/configs/ntfc_cm7'
       flash: 'st-flash write $IMAGE_BIN 0x08000000'
       reboot: 'st-flash reset'
+      dcmake:
+        - ["CMAKE_POLICY_VERSION_MINIMUM", "3.5"]
 
     core1:
       name: 'cm4'
       device: 'tty'
       exec_path: '/dev/ttyACM0'
       exec_args: '115200,n,8,1'
-      defconfig: 'boards/arm/stm32h7/nucleo-h745zi/configs/ntfc-all-cm4'
+      defconfig: 'boards/arm/stm32h7/nucleo-h745zi/configs/ntfc_cm4'
       flash: 'st-flash write $IMAGE_BIN 0x08100000'
       reboot: 'st-flash reset'
+      dcmake:
+        - ["CMAKE_POLICY_VERSION_MINIMUM", "3.5"]
 
