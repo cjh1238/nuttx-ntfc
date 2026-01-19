@@ -24,8 +24,6 @@ Code Quality
 
 * Fix pylint issues.
 
-* Setup CI in Github.
-
 Documentation
 =============
 
@@ -34,13 +32,9 @@ Documentation
 NuttX CI
 ========
 
-* Compare features with ``tools/ci/testrun``, what is missing?
+* enable more tests for citest configurations
 
-  - ``fatfs.img`` for ``DRIVERS_VIRTIO_BLK``
-    
-  - ``sim_rpserver`` and ``sim_rpproxy``
-
-* Integrate with NuttX CI.
+* enable more architectures
 
 Parallel executuon for host-based tests
 =======================================
@@ -57,8 +51,6 @@ AMP test cases
   Required to handle AMP cases.
 
 * Support for AMP test cases for host-based simulations (rpmsg).
-
-* Log console output per core (doesn't work now).
 
 Devices
 =======
@@ -87,8 +79,6 @@ Other improvements
 * Custom path to NuttX repositories.
 
 * Improve ntfc.yaml handling:
-
-  - Support for many test modules
 
   - Detect module configuration in parent dir
 
