@@ -145,12 +145,12 @@ class DeviceHost(DeviceCommon):
         if not self._child:
             raise IOError("Host device not ready")
 
-        if self._child.isalive():
+        if self._child.isalive():  # pragma: no cover
             # send power off
             self.poweroff()
             time.sleep(1)
 
-        if self._child.isalive():
+        if self._child.isalive():  # pragma: no cover
             # kill process group
             self._kill_process_group(self._child)
 

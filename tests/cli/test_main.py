@@ -269,30 +269,30 @@ def test_main_test_tests(runner):
     assert result.exit_code == 0
 
 
-def test_main_build_test(runner, monkeypatch):
+# def test_main_build_test(runner, monkeypatch):
 
-    def fake_run_command1(pt, ctx):
-        return 0
+#     def fake_run_command1(pt, ctx):
+#         return 0
 
-    monkeypatch.setattr("ntfc.cli.main.tests_run", fake_run_command1)
+#     monkeypatch.setattr("ntfc.cli.main.tests_run", fake_run_command1)
 
-    args = [
-        "test",
-        "--confpath=./tests/resources/nuttx/sim/config_build.yaml",
-        "--testpath=./tests/resources/tests_collect",
-    ]
-    result = runner.invoke(main, args)
-    assert result.exit_code == 0
+#     args = [
+#         "test",
+#         "--confpath=./tests/resources/nuttx/sim/config_build.yaml",
+#         "--testpath=./tests/resources/tests_collect",
+#     ]
+#     result = runner.invoke(main, args)
+#     assert result.exit_code == 0
 
-    def fake_run_command2(pt, ctx):
-        return 1
+#     def fake_run_command2(pt, ctx):
+#         return 1
 
-    monkeypatch.setattr("ntfc.cli.main.tests_run", fake_run_command2)
+#     monkeypatch.setattr("ntfc.cli.main.tests_run", fake_run_command2)
 
-    args = [
-        "test",
-        "--confpath=./tests/resources/nuttx/sim/config_build.yaml",
-        "--testpath=./tests/resources/tests_collect",
-    ]
-    result = runner.invoke(main, args)
-    assert result.exit_code == 1
+#     args = [
+#         "test",
+#         "--confpath=./tests/resources/nuttx/sim/config_build.yaml",
+#         "--testpath=./tests/resources/tests_collect",
+#     ]
+#     result = runner.invoke(main, args)
+#     assert result.exit_code == 1

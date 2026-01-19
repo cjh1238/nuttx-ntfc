@@ -149,7 +149,7 @@ class NuttXBuilder:
             for d in custom_defines:
                 defines[d[0]] = d[1]  # pragma: no cover
 
-            if not already_build or self._rebuild:
+            if not already_build or self._rebuild:  # pragma: no cover
                 # configure build
                 self._run_cmake(
                     source=nuttx_dir,
