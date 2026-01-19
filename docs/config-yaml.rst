@@ -82,6 +82,10 @@ QEMU
 Common QEMU executables: ``qemu-system-arm``, ``qemu-system-aarch64``,
 ``qemu-system-i386``, ``qemu-system-x86_64``, ``qemu-system-riscv64``
 
+At default NTFC automatically add the ``-kernel path_to_elf_image`` option
+to ``exec_args``. You can also add your custom boot parameter with
+``$IMAGE_ELF``, where ``$IMAGE_ELF`` will be replaced with the path to the ELF.
+
 Serial Device
 -------------
 

@@ -35,6 +35,8 @@ if TYPE_CHECKING:
 class DeviceQemu(DeviceHost):
     """This class implements host-based QEMU emulator."""
 
+    IMAGE_ELF_STR = "$IMAGE_ELF"
+
     def __init__(self, conf: "CoreConfig"):
         """Initialize QEMU emulator device."""
         DeviceHost.__init__(self, conf)
@@ -52,13 +54,17 @@ class DeviceQemu(DeviceHost):
 
         cmd = []
         uptime = self._conf.uptime
-        kernel_param = "-kernel " + elf
 
         cmd.append(exec_path)
         cmd.append(" ")
+        if self.IMAGE_ELF_STR not in exec_args:
+            kernel_param = "-kernel " + elf
+            cmd.append(kernel_param)
+            cmd.append(" ")
+        else:
+            exec_args = exec_args.replace(self.IMAGE_ELF_STR, elf)
+
         cmd.append(exec_args)
-        cmd.append(" ")
-        cmd.append(kernel_param)
 
         # open host-based emulation
         self.host_open(cmd, uptime)

@@ -25,11 +25,6 @@ import pytest
 from ntfc.device.qemu import DeviceQemu
 
 
-def host_open_dummy(cmd, uptime):
-    assert uptime == 3
-    assert cmd == ["some/path", " ", "some args", " ", "-kernel some/path"]
-
-
 def test_device_qemu_open():
 
     with patch("ntfc.coreconfig.CoreConfig") as mockdevice:
@@ -53,11 +48,56 @@ def test_device_qemu_open():
 
         assert qemu.name == "qemu"
 
-        qemu.host_open = host_open_dummy
+        def host_open_dummy1(cmd, uptime):
+            assert uptime == 3
+            assert cmd == [
+                "some/path",
+                " ",
+                "-kernel some/image",
+                " ",
+                "some args",
+            ]
+
+        qemu.host_open = host_open_dummy1
 
         config.exec_path = "some/path"
         config.exec_args = "some args"
-        config.elf_path = "some/path"
+        config.elf_path = "some/image"
+        config.uptime = 3
+
+        qemu.start()
+
+        def host_open_dummy2(cmd, uptime):
+            assert uptime == 3
+            assert cmd == [
+                "some/path",
+                " ",
+                "-bios some/image",
+            ]
+
+        qemu.host_open = host_open_dummy2
+
+        config.exec_path = "some/path"
+        config.exec_args = "-bios $IMAGE_ELF"
+        config.elf_path = "some/image"
+        config.uptime = 3
+
+        qemu.start()
+
+        def host_open_dummy3(cmd, uptime):
+            print(cmd)
+            assert uptime == 3
+            assert cmd == [
+                "some/path",
+                " ",
+                "some/image -params",
+            ]
+
+        qemu.host_open = host_open_dummy3
+
+        config.exec_path = "some/path"
+        config.exec_args = "$IMAGE_ELF -params"
+        config.elf_path = "some/image"
         config.uptime = 3
 
         qemu.start()
