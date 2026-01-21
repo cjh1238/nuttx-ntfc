@@ -101,3 +101,21 @@ def test_device_qemu_open():
         config.uptime = 3
 
         qemu.start()
+
+        def host_open_dummy4(cmd, uptime):
+            print(cmd)
+            assert uptime == 3
+            assert cmd == [
+                "some/path",
+                " ",
+                "-kernel custom/img",
+            ]
+
+        qemu.host_open = host_open_dummy4
+
+        config.exec_path = "some/path"
+        config.exec_args = "-kernel custom/img"
+        config.elf_path = "some/image"
+        config.uptime = 3
+
+        qemu.start()

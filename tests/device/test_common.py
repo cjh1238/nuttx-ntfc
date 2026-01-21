@@ -70,11 +70,11 @@ def test_device_common_data():
     assert str(a) == "SUCCESS"
 
     b = CmdReturn(0)
-    (c1, c2, c3) = b
+    c1, c2, c3 = b
     assert (c1, c2, c3) == (0, None, "")
 
     b = CmdReturn(-1, None, "test")
-    (c1, c2, c3) = b
+    c1, c2, c3 = b
     assert (c1, c2, c3) == (-1, None, "test")
 
 
