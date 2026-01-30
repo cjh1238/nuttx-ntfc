@@ -36,7 +36,7 @@ class DeviceQemu(DeviceHost):
     """This class implements host-based QEMU emulator."""
 
     IMAGE_ELF_STR = "$IMAGE_ELF"
-    BOOT_ARGS = ("-kernel", "-cdrom", "-bios")
+    BOOT_ARGS = ("-kernel", "-cdrom")
 
     def __init__(self, conf: "CoreConfig"):
         """Initialize QEMU emulator device."""
@@ -60,7 +60,9 @@ class DeviceQemu(DeviceHost):
         cmd.append(" ")
 
         has_placeholder = self.IMAGE_ELF_STR in exec_args
-        has_boot_arg = any(flag in exec_args for flag in self.BOOT_ARGS)
+        has_boot_arg = any(flag in exec_args for flag in self.BOOT_ARGS) or (
+            "-bios" in exec_args and "-bios none" not in exec_args
+        )
 
         if has_placeholder:
             exec_args = exec_args.replace(self.IMAGE_ELF_STR, elf)
