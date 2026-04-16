@@ -66,3 +66,12 @@ target-version = ['py310']
 [tool.isort]
 profile = "black"
 line_length = 79
+
+[tool.mypy]
+mypy_path = "typings"
+
+[[tool.mypy.overrides]]
+module = "ntfc.gdb.requests"
+# This module runs inside GDB's Python interpreter and imports 'gdb'
+# which has no type stubs. Exclude from strict checking.
+ignore_errors = true
